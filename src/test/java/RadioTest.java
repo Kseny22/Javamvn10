@@ -4,6 +4,94 @@ import org.junit.jupiter.api.Test;
 public class RadioTest {
 
     @Test
+    public void RadioStandart() {
+        Radio radio = new Radio();
+        Assertions.assertEquals(9, radio.getMaxStation());
+        Assertions.assertEquals(0, radio.getMinStantion());
+    }
+
+    @Test
+    public void RadioNewParameter() {
+        Radio radio = new Radio(30);
+        Assertions.assertEquals(29, radio.getMaxStation());
+        Assertions.assertEquals(0, radio.getMinStantion());
+    }
+
+    @Test
+    public void RadioMoreMax() {
+        Radio radio = new Radio(30);
+        radio.setCurrentStation(77);
+
+        int expected = 0;
+        int actual = radio.getCurrentStation();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void RadioMaxBorder() {
+        Radio radio = new Radio(30);
+        radio.setCurrentStation(29);
+
+        int expected = 29;
+        int actual = radio.getCurrentStation();
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    public void RadioNormBorder() {
+        Radio radio = new Radio(30);
+        radio.setCurrentStation(9);
+
+        int expected = 9;
+        int actual = radio.getCurrentStation();
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    public void RadioNextNormBorder() {
+        Radio radio = new Radio(30);
+        radio.setCurrentStation(28);
+
+        radio.next();
+
+        int expected = 29;
+        int actual = radio.getCurrentStation();
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    public void RadioNormBorderNext() {
+        Radio radio = new Radio(30);
+        radio.setCurrentStation(8);
+
+        radio.next();
+
+        int expected = 9;
+        int actual = radio.getCurrentStation();
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    public void RadioPrevNormBorder() {
+        Radio radio = new Radio(30);
+        radio.setCurrentStation(0);
+
+        radio.prev();
+
+        int expected = 29;
+        int actual = radio.getCurrentStation();
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    public void RadioNormBorderPrev() {
+        Radio radio = new Radio(30);
+        radio.setCurrentStation(7);
+
+        radio.prev();
+
+        int expected = 6;
+        int actual = radio.getCurrentStation();
+        Assertions.assertEquals(expected, actual);
+    }
+
+
+    @Test
     public void installation() {
         Radio radio = new Radio();
         radio.setCurrentStation(5);
@@ -276,6 +364,7 @@ public class RadioTest {
         int actual = radio.getCurrentVolume();
         Assertions.assertEquals(expected, actual);
     }
+
     @Test
     public void volumeMaxNorma() {
         Radio radio = new Radio();
@@ -286,6 +375,7 @@ public class RadioTest {
         int actual = radio.getCurrentVolume();
         Assertions.assertEquals(expected, actual);
     }
+
     @Test
     public void volumeMinNorma() {
         Radio radio = new Radio();
@@ -380,6 +470,7 @@ public class RadioTest {
         int actual = radio.getCurrentVolume();
         Assertions.assertEquals(expected, actual);
     }
+
     @Test
     public void volumeMinusOneHundred() {
         Radio radio = new Radio();
